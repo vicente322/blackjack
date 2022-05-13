@@ -1,6 +1,6 @@
 /**
  * A classe Blackjack é um jogo de Blackjack.
- * 
+ *
  * TODO:
  * - ajustar valor das cartas.
  * - apresentar cartas com letras para A, J, Q e K.
@@ -9,7 +9,7 @@
  * - perder ao passar de 21.
  * - esconder cartas do dealer.
  * - criar placar.
- * 
+ *
  * @author v.hofmeister@edu.pucrs.br
  * @version 2022-05-09
  */
@@ -67,6 +67,8 @@ public class Blackjack{
             while (answer.equalsIgnoreCase("sim")){
                   pNumber = r.nextInt(13) + 1;
                   dNumber = r.nextInt(13) + 1;
+                  pCard = CardValue(pNumber);
+                  dCard = CardValue(dNumber);
 
                   System.out.printf("\nSua carta: %d\n",pNumber);
 
