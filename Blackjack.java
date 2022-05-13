@@ -1,15 +1,6 @@
 /**
  * A classe Blackjack é um jogo de Blackjack.
  *
- * TODO:
- * - ajustar valor das cartas.
- * - apresentar cartas com letras para A, J, Q e K.
- * - adicionar segunda carta.
- * - permitir mais cartas.
- * - perder ao passar de 21.
- * - esconder cartas do dealer.
- * - criar placar.
- *
  * @author v.hofmeister@edu.pucrs.br
  * @version 2022-05-09
  */
