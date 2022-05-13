@@ -10,7 +10,7 @@ import java.util.Random;
 public class Blackjack{
 
       public static String Title(String titulo){
-            System.out.printf("\n" + titulo.toUpperCase() + "!\n\n");
+            System.out.printf("\n\n\n" + titulo.toUpperCase() + "!\n\n");
             return "";
       }
       public static String Score(int score1, int score2){
@@ -47,6 +47,18 @@ public class Blackjack{
 
         return value;
       }
+      public static boolean CheckAnswer(String answer){
+        String a = "";
+
+        if (!answer.equalsIgnoreCase("sim") && !answer.equalsIgnoreCase("nao")){
+              System.out.println("Insira uma resposta valida! (SIM ou NAO)");
+              a = sc.next();
+        } else {
+          a = answer;
+        }
+
+        return a;
+      }
 
       public static void main(String args[]){
             Scanner sc;
@@ -56,6 +68,8 @@ public class Blackjack{
 
              sc = new Scanner(System.in);
              r = new Random();
+             pScore = 0;
+             dScore = 0;
 
              Title("blackjack");
              System.out.println("Deseja Iniciar? (SIM ou NAO)");
@@ -83,20 +97,22 @@ public class Blackjack{
 
                   if (pNumber > dNumber){
                         System.out.printf("\nVOCE GANHOU!\n\n");
+                        pScore++;
                   } else if (pNumber < dNumber){
                         System.out.printf("\nDEALER GANHOU!\n\n");
+                        dScore++;
                   } else {
                         System.out.printf("\nEMPATE!\n\n");
                   }
+
+                  Score(pScore, dScore);
 
                   System.out.println("Jogar de novo?");
 
                   answer = sc.next();
 
-                  if (!answer.equalsIgnoreCase("sim") && !answer.equalsIgnoreCase("nao")){
-                        System.out.println("Insira uma resposta valida! (SIM ou NAO)");
-                        answer = sc.next();
-                  }
+                  CheckAnswer(answer);
+
             }
 
             sc.close();
