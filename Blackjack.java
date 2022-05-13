@@ -26,7 +26,7 @@ public class Blackjack{
             System.out.printf("%d X %d\n", score1, score2);
             return "";
       }
-      public static String CardValue(int card){
+      public static String Card(int card){
             String c;
             c = "";
 
@@ -43,6 +43,18 @@ public class Blackjack{
             }
 
             return c;
+      }
+      public static int CardValue(String card){
+        int value;
+        if (card.equals("A")){
+          value = 11;
+        } else if (card.equals("K") || card.equals("Q") || card.equals("J")){
+          value = 10;
+        } else {
+          value = Integer.parseInt(card);
+        }
+
+        return value;
       }
 
       public static void main(String args[]){
@@ -67,12 +79,16 @@ public class Blackjack{
             while (answer.equalsIgnoreCase("sim")){
                   pNumber = r.nextInt(13) + 1;
                   dNumber = r.nextInt(13) + 1;
-                  pCard = CardValue(pNumber);
-                  dCard = CardValue(dNumber);
 
-                  System.out.printf("\nSua carta: %d\n",pNumber);
+                  pCard = Card(pNumber);
+                  dCard = Card(dNumber);
 
-                  System.out.printf("\nCarta do Dealer: %d\n", dNumber);
+                  pNumber = CardValue(pCard);
+                  dNumber = CardValue(dCard);
+
+                  System.out.printf("\nSua carta: %s\n",pCard);
+
+                  System.out.printf("\nCarta do Dealer: %s\n", dCard);
 
                   if (pNumber > dNumber){
                         System.out.printf("\nVOCE GANHOU!\n\n");
