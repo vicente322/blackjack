@@ -9,13 +9,11 @@ import java.util.Random;
 
 public class Blackjack{
 
-      public static String Title(String titulo){
+      public static void Title(String titulo){
             System.out.printf("\n\n\n" + titulo.toUpperCase() + "!\n\n");
-            return "";
       }
-      public static String Score(int score1, int score2){
-            System.out.printf("%d X %d\n", score1, score2);
-            return "";
+      public static void Score(int score1, int score2){
+            System.out.printf("%d X %d\n", score1, score2);;
       }
       public static String PullCard(Random r){
             String c;
@@ -97,6 +95,9 @@ public class Blackjack{
             while (answer.equalsIgnoreCase("sim")){
                   pCard = PullCard(r);
                   dCard = PullCard(r);
+                  while (dCard.equals(pCard)){
+                    dCard = PullCard(r);
+                  }
 
                   pNumber = CardValue(pCard);
                   dNumber = CardValue(dCard);
