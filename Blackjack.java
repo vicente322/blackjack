@@ -17,37 +17,53 @@ public class Blackjack{
             System.out.printf("%d X %d\n", score1, score2);
             return "";
       }
-      public static String Card(int card){
+      public static String PullCard(Random r){
             String c;
+            int n;
             c = "";
+            n = r.nextInt(13) + 1;
 
-            if (card == 1){
+            if (n == 1){
                   c = "A";
-            } else if (card == 11){
+            } else if (n == 11){
                   c = "J";
-            } else if (card == 12){
+            } else if (n == 12){
                   c = "Q";
-            } else if (card == 13){
+            } else if (n == 13){
                   c = "K";
             } else {
-                  c = String.valueOf(card);
+                  c = String.valueOf(n);
+            }
+
+            n = r.nextInt(4);
+
+            if (n == 0){
+              c += " de paus";
+            } else if (n == 1){
+              c += " de copas";
+            } else if (n == 2){
+              c += " de espadas";
+            } else if (n == 3){
+              c += " de ouros";
             }
 
             return c;
       }
       public static int CardValue(String card){
-        int value;
-        if (card.equals("A")){
+        String [] c = card.split(" ");
+        int value = 0;
+
+        if (c[0].equals("A")){
           value = 11;
-        } else if (card.equals("K") || card.equals("Q") || card.equals("J")){
+        } else if (c[0].equals("K") || c[0].equals("Q") || c[0].equals("J")){
           value = 10;
         } else {
-          value = Integer.parseInt(card);
+          value = Integer.parseInt(c[0]);
         }
 
         return value;
       }
-      public static boolean CheckAnswer(String answer){
+      public static  String CheckAnswer(Scanner sc, String answer){
         String a = "";
 
         if (!answer.equalsIgnoreCase("sim") && !answer.equalsIgnoreCase("nao")){
@@ -76,17 +92,11 @@ public class Blackjack{
 
              answer = sc.next();
 
-            if (!answer.equalsIgnoreCase("sim") && !answer.equalsIgnoreCase("nao")){
-                  System.out.println("Insira uma resposta valida! (SIM ou NAO)");
-                  answer = sc.next();
-            }
+            CheckAnswer(sc, answer);
 
             while (answer.equalsIgnoreCase("sim")){
-                  pNumber = r.nextInt(13) + 1;
-                  dNumber = r.nextInt(13) + 1;
-
-                  pCard = Card(pNumber);
-                  dCard = Card(dNumber);
+                  pCard = PullCard(r);
+                  dCard = PullCard(r);
 
                   pNumber = CardValue(pCard);
                   dNumber = CardValue(dCard);
@@ -111,8 +121,7 @@ public class Blackjack{
 
                   answer = sc.next();
 
-                  CheckAnswer(answer);
-
+                  answer = CheckAnswer(sc, answer);
             }
 
             sc.close();
