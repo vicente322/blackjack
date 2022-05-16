@@ -48,68 +48,84 @@ public class Blackjack{
             return c;
       }
       public static int CardValue(String card){
-        String [] c = card.split(" ");
-        int value = 0;
+            String [] c = card.split(" ");
+            int value = 0;
 
-        if (c[0].equals("A")){
-          value = 11;
-        } else if (c[0].equals("K") || c[0].equals("Q") || c[0].equals("J")){
-          value = 10;
-        } else {
-          value = Integer.parseInt(c[0]);
-        }
+            if (c[0].equals("A")){
+                  value = 11;
+            } else if (c[0].equals("K") || c[0].equals("Q") || c[0].equals("J")){
+                  value = 10;
+            } else if (c[0].equals("")){
+                  value = 0;
+            }else {
+                  value = Integer.parseInt(c[0]);
+            }
 
         return value;
       }
-      public static  String CheckAnswer(Scanner sc, String answer){
-        String a = "";
+      public static  String Answer(Scanner sc){
+            String a = sc.next();
 
-        if (!answer.equalsIgnoreCase("sim") && !answer.equalsIgnoreCase("nao")){
-              System.out.println("Insira uma resposta valida! (SIM ou NAO)");
-              a = sc.next();
-        } else {
-          a = answer;
-        }
-
-        return a;
+            while (!a.equalsIgnoreCase("sim") && !a.equalsIgnoreCase("nao")){
+                  System.out.println("Insira uma resposta valida! (SIM ou NAO)");
+                  a = sc.next();
+            }
+            return a;
+      }
+      public static int SumCards(int c1, int c2, int c3){
+            return (c1 + c2 + c3);
       }
 
       public static void main(String args[]){
             Scanner sc;
             Random r;
-            int pNumber, dNumber, pScore, dScore; //p = player, d = dealer.
-            String answer, pCard, dCard;
+            int pNumber1, pNumber2, pNumber3, dNumber1, dNumber2, dNumber3, pTotal, dTotal, pScore, dScore; //p = player, d = dealer.
+            String answer, pCard1, pCard2, pCard3, dCard1, dCard2, dCard3;
 
-             sc = new Scanner(System.in);
-             r = new Random();
-             pScore = 0;
-             dScore = 0;
+            sc = new Scanner(System.in);
+            r = new Random();
+            pScore = 0;
+            dScore = 0;
 
-             Title("blackjack");
-             System.out.println("Deseja Iniciar? (SIM ou NAO)");
+            Title("blackjack");
+            System.out.println("Deseja Iniciar? (SIM ou NAO)");
 
-             answer = sc.next();
-
-            CheckAnswer(sc, answer);
+            answer = Answer(sc);
 
             while (answer.equalsIgnoreCase("sim")){
-                  pCard = PullCard(r);
-                  dCard = PullCard(r);
-                  while (dCard.equals(pCard)){
-                    dCard = PullCard(r);
+                  pCard1 = PullCard(r);
+                  dCard1 = PullCard(r);
+                  while (dCard1.equals(pCard1)){
+                        dCard1 = PullCard(r);
                   }
+                  pCard2 = PullCard(r);
+                  while (pCard2.equals(pCard1) || pCard2.equals(dCard1)){
+                        pCard2 = PullCard(r);
+                  }
+                  dCard2 = PullCard(r);
+                  while (dCard2.equals(pCard1) || dCard2.equals(dCard1) || dCard2.equals(pCard2)){
+                        dCard2 = PullCard(r);
+                  }
+                  pCard3 = "";
+                  dCard3 = "";
 
-                  pNumber = CardValue(pCard);
-                  dNumber = CardValue(dCard);
+                  pNumber1 = CardValue(pCard1);
+                  dNumber1 = CardValue(dCard1);
+                  pNumber2 = CardValue(pCard2);
+                  dNumber2 = CardValue(dCard2);
+                  pNumber3 = CardValue(pCard3);
+                  dNumber3 = CardValue(dCard3);
 
-                  System.out.printf("\nSua carta: %s\n",pCard);
+                  pTotal = SumCards(pNumber1, pNumber2, pNumber3);
+                  System.out.printf("\nSuas cartas: %s e %s\nTotal: %d\n", pCard1, pCard2, pTotal);
 
-                  System.out.printf("\nCarta do Dealer: %s\n", dCard);
+                  dTotal = SumCards(dNumber1, dNumber2, dNumber3);
+                  System.out.printf("\nCarta do Dealer: %s e %s\nTotal: %d\n", dCard1, dCard2, dTotal);
 
-                  if (pNumber > dNumber){
+                  if (pTotal > dTotal){
                         System.out.printf("\nVOCE GANHOU!\n\n");
                         pScore++;
-                  } else if (pNumber < dNumber){
+                  } else if (pTotal < dTotal){
                         System.out.printf("\nDEALER GANHOU!\n\n");
                         dScore++;
                   } else {
@@ -120,9 +136,7 @@ public class Blackjack{
 
                   System.out.println("Jogar de novo?");
 
-                  answer = sc.next();
-
-                  answer = CheckAnswer(sc, answer);
+                  answer = Answer(sc);
             }
 
             sc.close();
