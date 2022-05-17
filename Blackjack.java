@@ -63,7 +63,7 @@ public class Blackjack{
 
         return value;
       }
-      public static  String Answer(Scanner sc){
+      public static String Answer(Scanner sc){
             String a = sc.next();
 
             while (!a.equalsIgnoreCase("sim") && !a.equalsIgnoreCase("nao")){
@@ -72,15 +72,25 @@ public class Blackjack{
             }
             return a;
       }
-      public static int SumCards(int c1, int c2, int c3){
-            return (c1 + c2 + c3);
+      public static int SumCards(int c1, int c2, int c3, int c4){
+            return (c1 + c2 + c3 + c4);
+      }
+      public static boolean HitMe(Scanner sc){
+            String a;
+            System.out.printf("\nNova carta?\n");
+            a = Answer(sc);
+
+            return a.equalsIgnoreCase("sim");
+      }
+      public static void ShowCards(String c1, String c2, String c3, String c4){
+
       }
 
       public static void main(String args[]){
             Scanner sc;
             Random r;
-            int pNumber1, pNumber2, pNumber3, dNumber1, dNumber2, dNumber3, pTotal, dTotal, pScore, dScore; //p = player, d = dealer.
-            String answer, pCard1, pCard2, pCard3, dCard1, dCard2, dCard3;
+            int pNumber1, pNumber2, pNumber3, pNumber4, dNumber1, dNumber2, dNumber3, dNumber4, pTotal, dTotal, pScore, dScore; //p = player, d = dealer.
+            String answer, pCard1, pCard2, pCard3, pCard4, dCard1, dCard2, dCard3, dCard4;
 
             sc = new Scanner(System.in);
             r = new Random();
@@ -108,6 +118,8 @@ public class Blackjack{
                   }
                   pCard3 = "";
                   dCard3 = "";
+                  pCard4 = "";
+                  dCard4 = "";
 
                   pNumber1 = CardValue(pCard1);
                   dNumber1 = CardValue(dCard1);
@@ -115,12 +127,30 @@ public class Blackjack{
                   dNumber2 = CardValue(dCard2);
                   pNumber3 = CardValue(pCard3);
                   dNumber3 = CardValue(dCard3);
+                  pNumber4 = CardValue(pCard4);
+                  dNumber4 = CardValue(dCard4);
 
-                  pTotal = SumCards(pNumber1, pNumber2, pNumber3);
+                  pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
                   System.out.printf("\nSuas cartas: %s e %s\nTotal: %d\n", pCard1, pCard2, pTotal);
 
-                  dTotal = SumCards(dNumber1, dNumber2, dNumber3);
+                  dTotal = SumCards(dNumber1, dNumber2, dNumber3, dNumber4);
                   System.out.printf("\nCarta do Dealer: %s e %s\nTotal: %d\n", dCard1, dCard2, dTotal);
+
+                  if (HitMe(sc)){
+                        pCard3 = PullCard(r);
+                        pNumber3 = CardValue(pCard3);
+
+                        pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
+                        System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCard1, pCard2, pCard3, pTotal);
+
+                        if (HitMe(sc)){
+                              pCard4 = PullCard(r);
+                              pNumber4 = CardValue(pCard4);
+
+                              pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
+                              System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCard1, pCard2, pCard3, pCard4, pTotal);
+                        }
+                  }
 
                   if (pTotal > dTotal){
                         System.out.printf("\nVOCE GANHOU!\n\n");
