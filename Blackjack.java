@@ -83,7 +83,7 @@ public class Blackjack{
             return a.equalsIgnoreCase("sim");
       }
       public static void ShowCards(String c1, String c2, String c3, String c4){
-            
+
       }
 
       public static void main(String args[]){
@@ -127,8 +127,8 @@ public class Blackjack{
                   dNumber2 = CardValue(dCard2);
                   pNumber3 = CardValue(pCard3);
                   dNumber3 = CardValue(dCard3);
-                  pNumber4 = CardValue(pCard3);
-                  dNumber4 = CardValue(dCard3);
+                  pNumber4 = CardValue(pCard4);
+                  dNumber4 = CardValue(dCard4);
 
                   pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
                   System.out.printf("\nSuas cartas: %s e %s\nTotal: %d\n", pCard1, pCard2, pTotal);
