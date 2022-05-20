@@ -15,6 +15,25 @@ public class Blackjack{
       public static void Score(int score1, int score2){
             System.out.printf("%d X %d\n", score1, score2);;
       }
+      public static String Answer(Scanner sc){
+            String a = sc.next();
+
+            while (!a.equalsIgnoreCase("sim") && !a.equalsIgnoreCase("nao")){
+                  System.out.println("Insira uma resposta valida! (SIM ou NAO)");
+                  a = sc.next();
+            }
+            return a;
+      }
+      public static String Begin(Scanner sc){
+            System.out.println("Deseja Iniciar? (SIM ou NAO)");
+
+            return Answer(sc);
+      }
+      public static String PlayAgain(Scanner sc){
+            System.out.println("Jogar de novo?");
+
+            return Answer(sc);
+      }
       public static String PullCard(Random r){
             String c;
             int n;
@@ -63,15 +82,6 @@ public class Blackjack{
 
         return value;
       }
-      public static String Answer(Scanner sc){
-            String a = sc.next();
-
-            while (!a.equalsIgnoreCase("sim") && !a.equalsIgnoreCase("nao")){
-                  System.out.println("Insira uma resposta valida! (SIM ou NAO)");
-                  a = sc.next();
-            }
-            return a;
-      }
       public static int SumCards(int c1, int c2, int c3, int c4){
             return (c1 + c2 + c3 + c4);
       }
@@ -82,8 +92,12 @@ public class Blackjack{
 
             return a.equalsIgnoreCase("sim");
       }
-      public static boolean CheckTotal(int n1, int n2, int n3, int n4){
-            return (n1 + n2 + n3 + n4 <= 21);
+      public static boolean CheckBust(int total){
+
+            return total > 21;
+      }
+      public static boolean CheckBlackjack(int total){
+            return total == 21;
       }
 
       public static void main(String args[]){
@@ -98,11 +112,11 @@ public class Blackjack{
             dScore = 0;
 
             Title("blackjack");
-            System.out.println("Deseja Iniciar? (SIM ou NAO)");
 
-            answer = Answer(sc);
+            answer = Begin(sc);
 
             while (answer.equalsIgnoreCase("sim")){
+
                   pCard1 = PullCard(r);
                   dCard1 = PullCard(r);
                   while (dCard1.equals(pCard1)){
@@ -131,43 +145,78 @@ public class Blackjack{
                   dNumber4 = CardValue(dCard4);
 
                   pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
-                  System.out.printf("\nSuas cartas: %s e %s\nTotal: %d\n", pCard1, pCard2, pTotal);
-
                   dTotal = SumCards(dNumber1, dNumber2, dNumber3, dNumber4);
-                  System.out.printf("\nCarta do Dealer: %s e %s\nTotal: %d\n", dCard1, dCard2, dTotal);
 
-                  if (HitMe(sc)){
-                        pCard3 = PullCard(r);
-                        pNumber3 = CardValue(pCard3);
-
-                        pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
-                        System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCard1, pCard2, pCard3, pTotal);
-                        if (CheckTotal(pNumber1, pNumber2, pNumber3, pNumber4))
-                        if (HitMe(sc)){
-                              pCard4 = PullCard(r);
-                              pNumber4 = CardValue(pCard4);
-
-                              pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
-                              System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCard1, pCard2, pCard3, pCard4, pTotal);
-                        }
+                  System.out.printf("\nSuas cartas: %s e %s\nTotal: %d\n", pCard1, pCard2, pTotal);
+                  if (CheckBlackjack(pTotal)){
+                        System.out.println("BLACKJACK!!");
                   }
-/*
-                  if (pTotal > dTotal){
+
+                  System.out.printf("\nCarta do Dealer: %s e %s\nTotal: %d\n", dCard1, dCard2, dTotal);
+                  if (CheckBlackjack(dTotal)){
+                        System.out.println("BLACKJACK!!");
+                  }
+
+                  if (CheckBlackjack(pTotal) && CheckBlackjack(dTotal)){
+                        System.out.println("EMPATE!");
+                  }
+                  else if (CheckBlackjack(pTotal) && !CheckBlackjack(dTotal)){
                         System.out.printf("\nVOCE GANHOU!\n\n");
                         pScore++;
-                  } else if (pTotal < dTotal){
+                  }
+                  else if (!CheckBlackjack(pTotal) && CheckBlackjack(dTotal)){
                         System.out.printf("\nDEALER GANHOU!\n\n");
                         dScore++;
-                  } else {
-                        System.out.printf("\nEMPATE!\n\n");
                   }
-*/
+                  else {
 
+                        if (HitMe(sc)){
+                              pCard3 = PullCard(r);
+                              pNumber3 = CardValue(pCard3);
+
+                              pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
+                              System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCard1, pCard2, pCard3, pTotal);
+
+                              if (CheckBlackjack(pTotal)){
+                                    System.out.println("BLACKJACK!!");
+                                    pScore++;
+                              }
+                              else if (CheckBust(pTotal)){
+                                    System.out.println("VOCE QUEIMOU!!");
+                                    dScore++;
+                              }
+                              else if (HitMe(sc)){
+                                    pCard4 = PullCard(r);
+                                    pNumber4 = CardValue(pCard4);
+
+                                    pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
+                                    System.out.printf("\nSuas cartas: %s, %s, %s e %s\nTotal: %d\n", pCard1, pCard2, pCard3, pCard4, pTotal);
+                                    if (CheckBlackjack(pTotal)){
+                                          System.out.println("BLACKJACK!!");
+                                          pScore++;
+                                    }
+                                    else if (CheckBust(pTotal)){
+                                          System.out.println("VOCE QUEIMOU!!");
+                                          dScore++;
+                                    }
+                              }
+                        }
+
+                        if (!CheckBust(pTotal) && !CheckBust(dTotal)){
+                              if (pTotal > dTotal){
+                                    System.out.printf("\nVOCE GANHOU!\n\n");
+                                    pScore++;
+                              } else if (pTotal < dTotal){
+                                    System.out.printf("\nDEALER GANHOU!\n\n");
+                                    dScore++;
+                              } else {
+                                    System.out.printf("\nEMPATE!\n\n");
+                              }
+                        }
+                  }
                   Score(pScore, dScore);
 
-                  System.out.println("Jogar de novo?");
-
-                  answer = Answer(sc);
+                  answer = PlayAgain(sc);
             }
 
             sc.close();
