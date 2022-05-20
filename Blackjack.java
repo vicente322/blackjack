@@ -82,8 +82,8 @@ public class Blackjack{
 
             return a.equalsIgnoreCase("sim");
       }
-      public static void ShowCards(String c1, String c2, String c3, String c4){
-
+      public static boolean CheckTotal(int n1, int n2, int n3, int n4){
+            return (n1 + n2 + n3 + n4 <= 21);
       }
 
       public static void main(String args[]){
@@ -142,7 +142,7 @@ public class Blackjack{
 
                         pTotal = SumCards(pNumber1, pNumber2, pNumber3, pNumber4);
                         System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCard1, pCard2, pCard3, pTotal);
-
+                        if (CheckTotal(pNumber1, pNumber2, pNumber3, pNumber4))
                         if (HitMe(sc)){
                               pCard4 = PullCard(r);
                               pNumber4 = CardValue(pCard4);
@@ -151,7 +151,7 @@ public class Blackjack{
                               System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCard1, pCard2, pCard3, pCard4, pTotal);
                         }
                   }
-
+/*
                   if (pTotal > dTotal){
                         System.out.printf("\nVOCE GANHOU!\n\n");
                         pScore++;
@@ -161,6 +161,7 @@ public class Blackjack{
                   } else {
                         System.out.printf("\nEMPATE!\n\n");
                   }
+*/
 
                   Score(pScore, dScore);
 
