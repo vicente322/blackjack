@@ -105,7 +105,13 @@ public class Blackjack{
       }
       public static void PrintPCards(String[] cards){
             System.out.printf("\nSuas Cartas: ");
-            int soma = SumCards(cards);
+            int [] cardsValue;
+            cardsValue = new int [12];
+            for (int i = 0; i < 12; i++){
+                  cardsValue[i] = CardValue(cards[i]);
+            }
+
+            int soma = SumCards(cardsValue);
 
             for (int i = 1; i <= 13; i++){
                   if (!cards[i].equals(null)){
@@ -120,7 +126,15 @@ public class Blackjack{
       }
       public static void PrintDCards(String[] cards){
             System.out.printf("\nCarta do Dealer: ");
-            int soma = SumCards(cards);
+            int [] cardsValue;
+            cardsValue = new int [12];
+            for (int i = 0; i < 12; i++){
+                  if (!cards.equals(null)){
+                        cardsValue[i] = CardValue(cards[i]);
+                  }
+            }
+
+            int soma = SumCards(cardsValue);
 
             for (int i = 1; i <= 13; i++){
                   if (!cards[i].equals(null)){
@@ -208,7 +222,7 @@ public class Blackjack{
 
                               pTotal = SumCards(pNumbers);
                               PrintPCards(pCards);
-                              
+
                               if (CheckBust(pTotal)){
                                     System.out.println("QUEIMOU!!");
                                     dScore++;
