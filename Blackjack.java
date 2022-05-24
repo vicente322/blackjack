@@ -103,6 +103,36 @@ public class Blackjack{
       public static boolean CheckBlackjack(int total){
             return total == 21;
       }
+      public static void PrintPCards(String[] cards){
+            System.out.printf("\nSuas Cartas: ");
+            int soma = SumCards(cards);
+
+            for (int i = 1; i <= 13; i++){
+                  if (!cards[i].equals(null)){
+                        System.out.print(cards[i-1] + ", ");
+                  }
+                  else {
+                        System.out.print("e " + cards[i-1]);
+                  }
+            }
+
+            System.out.printf("\nTotal: %d\n", soma);
+      }
+      public static void PrintDCards(String[] cards){
+            System.out.printf("\nCarta do Dealer: ");
+            int soma = SumCards(cards);
+
+            for (int i = 1; i <= 13; i++){
+                  if (!cards[i].equals(null)){
+                        System.out.print(cards[i-1] + ", ");
+                  }
+                  else {
+                        System.out.print("e " + cards[i-1]);
+                  }
+            }
+
+            System.out.printf("\nTotal: %d\n", soma);
+      }
 
 
       public static void main(String args[]){
@@ -152,12 +182,12 @@ public class Blackjack{
                   pTotal = SumCards(pNumbers);
                   dTotal = SumCards(dNumbers);
 
-                  System.out.printf("\nSuas cartas: %s e %s\nTotal: %d\n", pCards[0], pCards[1], pTotal);
+                  PrintPCards(pCards);
                   if (CheckBlackjack(pTotal)){
                         System.out.println("BLACKJACK!!");
                   }
 
-                  System.out.printf("\nCarta do Dealer: %s e %s\nTotal: %d\n", dCards[0], dCards[1], dTotal);
+                  PrintDCards(dCards);
                   if (CheckBlackjack(dTotal)){
                         System.out.println("BLACKJACK!!");
                   }
