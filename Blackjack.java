@@ -96,6 +96,9 @@ public class Blackjack{
 
             return a.equalsIgnoreCase("sim");
       }
+      public static boolean HitDealer(int total){
+            return total < 17;
+      }
       public static boolean CheckBust(int total){
 
             return total > 21;
@@ -115,10 +118,6 @@ public class Blackjack{
 
             sc = new Scanner(System.in);
             r = new Random();
-            pCards = new String [12];
-            dCards = new String [12];
-            pNumbers = new int [12];
-            dNumbers = new int [12];
             pScore = 0;
             dScore = 0;
 
@@ -127,7 +126,10 @@ public class Blackjack{
             answer = Begin(sc);
 
             while (answer.equalsIgnoreCase("sim")){
-
+                  pCards = new String [12];
+                  dCards = new String [12];
+                  pNumbers = new int [12];
+                  dNumbers = new int [12];
 
                   pCards[0] = PullCard(r);
                   dCards[0] = PullCard(r);
@@ -197,6 +199,35 @@ public class Blackjack{
                                           dScore++;
                                     }
                                     else if (CheckBlackjack(pTotal)){
+                                          System.out.println("BLACKJACK!!");
+                                    }
+                              }
+                        }
+
+                        if (HitDealer(dTotal)){
+                              dCards[2] = PullCard(r);
+                              dNumbers[2] = CardValue(dCards[2]);
+
+                              dTotal = SumCards(dNumbers);
+                              System.out.printf("\nCartas do Dealer: %s, %s e %s\nTotal: %d\n", dCards[0], dCards[1], dCards[2], dTotal);
+
+                              if (CheckBust(dTotal)){
+                                    System.out.println("QUEIMOU!!");
+                              }
+                              else if (CheckBlackjack(dTotal)){
+                                    System.out.println("BLACKJACK!!");
+                              }
+                              else if (HitDealer(dTotal)){
+                                    dCards[3] = PullCard(r);
+                                    dNumbers[3] = CardValue(dCards[3]);
+
+                                    dTotal = SumCards(dNumbers);
+                                    System.out.printf("\nCartas do Dealer: %s, %s, %s e %s\nTotal: %d\n", dCards[0], dCards[1], dCards[2], dCards[3], dTotal);
+
+                                    if (CheckBust(dTotal)){
+                                          System.out.println("QUEIMOU!!");
+                                    }
+                                    else if (CheckBlackjack(dTotal)){
                                           System.out.println("BLACKJACK!!");
                                     }
                               }
