@@ -180,14 +180,25 @@ public class Blackjack{
                               System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCards[0], pCards[1], pCards[2], pTotal);
                               if (CheckBust(pTotal)){
                                     System.out.println("QUEIMOU!!");
+                                    dScore++;
                               }
-
-                              if (HitMe(sc)){
+                              else if (CheckBlackjack(pTotal)){
+                                    System.out.println("BLACKJACK!!");
+                              }
+                              else if (HitMe(sc)){
                                     pCards[3] = PullCard(r);
                                     pNumbers[3] = CardValue(pCards[3]);
 
                                     pTotal = SumCards(pNumbers);
                                     System.out.printf("\nSuas cartas: %s, %s, %s e %s\nTotal: %d\n", pCards[0], pCards[1], pCards[2], pCards[3], pTotal);
+
+                                    if (CheckBust(pTotal)){
+                                          System.out.println("QUEIMOU!!");
+                                          dScore++;
+                                    }
+                                    else if (CheckBlackjack(pTotal)){
+                                          System.out.println("BLACKJACK!!");
+                                    }
                               }
                         }
 
