@@ -202,14 +202,16 @@ public class Blackjack{
                               }
                         }
 
-                        if (pTotal > dTotal){
-                              System.out.printf("\nVOCE GANHOU!\n\n");
-                              pScore++;
-                        } else if (pTotal < dTotal){
-                              System.out.printf("\nDEALER GANHOU!\n\n");
-                              dScore++;
-                        } else {
-                              System.out.printf("\nEMPATE!\n\n");
+                        if (!CheckBust(pTotal) && !CheckBust(dTotal)){
+                              if (pTotal > dTotal){
+                                    System.out.printf("\nVOCE GANHOU!\n\n");
+                                    pScore++;
+                              } else if (pTotal < dTotal){
+                                    System.out.printf("\nDEALER GANHOU!\n\n");
+                                    dScore++;
+                              } else {
+                                    System.out.printf("\nEMPATE!\n\n");
+                              }
                         }
                   }
                   Score(pScore, dScore);
