@@ -207,7 +207,8 @@ public class Blackjack{
                               pNumbers[2] = CardValue(pCards[2]);
 
                               pTotal = SumCards(pNumbers);
-                              System.out.printf("\nSuas cartas: %s, %s e %s\nTotal: %d\n", pCards[0], pCards[1], pCards[2], pTotal);
+                              PrintPCards(pCards);
+                              
                               if (CheckBust(pTotal)){
                                     System.out.println("QUEIMOU!!");
                                     dScore++;
@@ -220,7 +221,7 @@ public class Blackjack{
                                     pNumbers[3] = CardValue(pCards[3]);
 
                                     pTotal = SumCards(pNumbers);
-                                    System.out.printf("\nSuas cartas: %s, %s, %s e %s\nTotal: %d\n", pCards[0], pCards[1], pCards[2], pCards[3], pTotal);
+                                    PrintPCards(pCards);
 
                                     if (CheckBust(pTotal)){
                                           System.out.println("QUEIMOU!!");
