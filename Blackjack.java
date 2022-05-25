@@ -2,7 +2,7 @@
  * A classe Blackjack é um jogo de Blackjack.
  *
  * @author v.hofmeister@edu.pucrs.br
- * @version 2022-05-09
+ * @version 2022-05-25
  */
 import java.util.Scanner;
 import java.util.Random;
@@ -95,6 +95,9 @@ public class Blackjack{
             a = Answer(sc);
 
             return a.equalsIgnoreCase("sim");
+      }
+      public static boolean HitDealer(int total){
+            return total < 17;
       }
       public static boolean CheckBust(int total){
 
@@ -200,16 +203,16 @@ public class Blackjack{
 
                   PrintPCards(pCards);
                   if (CheckBlackjack(pTotal)){
-                        System.out.println("BLACKJACK!!");
+                        System.out.printf("BLACKJACK!!\n\n");
                   }
 
                   PrintDCards(dCards);
                   if (CheckBlackjack(dTotal)){
-                        System.out.println("BLACKJACK!!");
+                        System.out.printf("BLACKJACK!!\n\n");
                   }
 
                   if (CheckBlackjack(pTotal) && CheckBlackjack(dTotal)){
-                        System.out.println("EMPATE!");
+                        System.out.printf("\nEMPATE!\n\n");
                   } else if (CheckBlackjack(pTotal) && !CheckBlackjack(dTotal)){
                         System.out.printf("\nVOCE GANHOU!\n\n");
                         pScore++;
@@ -224,13 +227,12 @@ public class Blackjack{
 
                               pTotal = SumCards(pNumbers);
                               PrintPCards(pCards);
-
                               if (CheckBust(pTotal)){
-                                    System.out.println("QUEIMOU!!");
+                                    System.out.printf("\nQUEIMOU!!\n\n");
                                     dScore++;
                               }
                               else if (CheckBlackjack(pTotal)){
-                                    System.out.println("BLACKJACK!!");
+                                    System.out.printf("BLACKJACK!!\n\n");
                               }
                               else if (HitMe(sc)){
                                     pCards[3] = PullCard(r);
@@ -240,11 +242,40 @@ public class Blackjack{
                                     PrintPCards(pCards);
 
                                     if (CheckBust(pTotal)){
-                                          System.out.println("QUEIMOU!!");
+                                          System.out.printf("\nQUEIMOU!!\n\n");
                                           dScore++;
                                     }
                                     else if (CheckBlackjack(pTotal)){
-                                          System.out.println("BLACKJACK!!");
+                                          System.out.printf("BLACKJACK!!\n\n");
+                                    }
+                              }
+                        }
+
+                        if (HitDealer(dTotal)){
+                              dCards[2] = PullCard(r);
+                              dNumbers[2] = CardValue(dCards[2]);
+
+                              dTotal = SumCards(dNumbers);
+                              PrintDCards(dCards);
+
+                              if (CheckBust(dTotal)){
+                                    System.out.printf("\nQUEIMOU!!\n\n");
+                              }
+                              else if (CheckBlackjack(dTotal)){
+                                    System.out.printf("BLACKJACK!!\n\n");
+                              }
+                              else if (HitDealer(dTotal)){
+                                    dCards[3] = PullCard(r);
+                                    dNumbers[3] = CardValue(dCards[3]);
+
+                                    dTotal = SumCards(dNumbers);
+                                    PrintDCards(dCards);
+
+                                    if (CheckBust(dTotal)){
+                                          System.out.printf("\nQUEIMOU!!\n\n");
+                                    }
+                                    else if (CheckBlackjack(dTotal)){
+                                          System.out.printf("BLACKJACK!!\n\n");
                                     }
                               }
                         }
