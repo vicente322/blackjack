@@ -290,6 +290,9 @@ public class Blackjack{
                               } else {
                                     System.out.printf("\nEMPATE!\n\n");
                               }
+                        } else if (!CheckBust(pTotal) && CheckBust(dTotal)){
+                              System.out.printf("\nVOCE GANHOU!\n\n");
+                              pScore++;
                         }
                   }
                   Score(pScore, dScore);
