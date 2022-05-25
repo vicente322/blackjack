@@ -191,7 +191,7 @@ public class Blackjack{
                   dCards = new String [12];
                   pNumbers = new int [12];
                   dNumbers = new int [12];
-              
+
                   pCards = NewCard(pCards);
                   dCards = NewCard(dCards);
 
