@@ -154,6 +154,20 @@ public class Blackjack{
 
             System.out.printf("\nTotal: %d\n", soma);
       }
+      public static String[] NewCard(String[] oldCards){
+            Random r = new Random();
+            String [] newCards = new String [oldCards.length];
+
+            for (int i = 0; i < 12; i++){
+                  if (oldCards[i] != null){
+                        newCards[i] = oldCards[i];
+                  } else {
+                        newCards[i] = PullCard(r);
+                        break;
+                  }
+            }
+            return newCards;
+      }
 
       public static void main(String args[]){
             Scanner sc;
@@ -178,17 +192,17 @@ public class Blackjack{
                   pNumbers = new int [12];
                   dNumbers = new int [12];
 
-                  pCards[0] = PullCard(r);
-                  dCards[0] = PullCard(r);
+                  pCards = NewCard(pCards);
+                  dCards = NewCard(dCards);
 
                   while (dCards[0].equals(pCards[0])){
                         dCards[0] = PullCard(r);
                   }
-                  pCards[1] = PullCard(r);
+                  pCards = NewCard(pCards);
                   while (pCards[1].equals(pCards[0]) || pCards[1].equals(dCards[0])){
                         pCards[1] = PullCard(r);
                   }
-                  dCards[1] = PullCard(r);
+                  dCards = NewCard(dCards);
                   while (dCards[1].equals(pCards[0]) || dCards[1].equals(dCards[0]) || dCards[1].equals(pCards[1])){
                         dCards[1] = PullCard(r);
                   }
@@ -222,7 +236,7 @@ public class Blackjack{
                   } else {
 
                         if (HitMe(sc)){
-                              pCards[2] = PullCard(r);
+                              pCards = NewCard(pCards);
                               pNumbers[2] = CardValue(pCards[2]);
 
                               pTotal = SumCards(pNumbers);
@@ -235,7 +249,7 @@ public class Blackjack{
                                     System.out.printf("BLACKJACK!!\n\n");
                               }
                               else if (HitMe(sc)){
-                                    pCards[3] = PullCard(r);
+                                    pCards = NewCard(pCards);
                                     pNumbers[3] = CardValue(pCards[3]);
 
                                     pTotal = SumCards(pNumbers);
@@ -252,7 +266,7 @@ public class Blackjack{
                         }
 
                         if (HitDealer(dTotal)){
-                              dCards[2] = PullCard(r);
+                              dCards= NewCard(dCards);
                               dNumbers[2] = CardValue(dCards[2]);
 
                               dTotal = SumCards(dNumbers);
@@ -265,7 +279,7 @@ public class Blackjack{
                                     System.out.printf("BLACKJACK!!\n\n");
                               }
                               else if (HitDealer(dTotal)){
-                                    dCards[3] = PullCard(r);
+                                    dCards= NewCard(dCards);
                                     dNumbers[3] = CardValue(dCards[3]);
 
                                     dTotal = SumCards(dNumbers);
