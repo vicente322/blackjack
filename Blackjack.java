@@ -108,17 +108,20 @@ public class Blackjack{
             int [] cardsValue;
             cardsValue = new int [12];
             for (int i = 0; i < 12; i++){
-                  cardsValue[i] = CardValue(cards[i]);
+                  if (cards[i] != null){
+                        cardsValue[i] = CardValue(cards[i]);
+                  }
             }
 
             int soma = SumCards(cardsValue);
 
-            for (int i = 1; i <= 13; i++){
-                  if (!cards[i].equals(null)){
+            for (int i = 1; i < 13; i++){
+                  if (cards[i] != null){
                         System.out.print(cards[i-1] + ", ");
                   }
                   else {
                         System.out.print("e " + cards[i-1]);
+                        break;
                   }
             }
 
@@ -129,25 +132,25 @@ public class Blackjack{
             int [] cardsValue;
             cardsValue = new int [12];
             for (int i = 0; i < 12; i++){
-                  if (!cards.equals(null)){
+                  if (cards[i] != null){
                         cardsValue[i] = CardValue(cards[i]);
                   }
             }
 
             int soma = SumCards(cardsValue);
 
-            for (int i = 1; i <= 13; i++){
-                  if (!cards[i].equals(null)){
+            for (int i = 1; i < 13; i++){
+                  if (cards[i] != null){
                         System.out.print(cards[i-1] + ", ");
                   }
                   else {
                         System.out.print("e " + cards[i-1]);
+                        break;
                   }
             }
 
             System.out.printf("\nTotal: %d\n", soma);
       }
-
 
       public static void main(String args[]){
             Scanner sc;
@@ -159,10 +162,6 @@ public class Blackjack{
 
             sc = new Scanner(System.in);
             r = new Random();
-            pCards = new String [12];
-            dCards = new String [12];
-            pNumbers = new int [12];
-            dNumbers = new int [12];
             pScore = 0;
             dScore = 0;
 
@@ -171,7 +170,10 @@ public class Blackjack{
             answer = Begin(sc);
 
             while (answer.equalsIgnoreCase("sim")){
-
+                  pCards = new String [12];
+                  dCards = new String [12];
+                  pNumbers = new int [12];
+                  dNumbers = new int [12];
 
                   pCards[0] = PullCard(r);
                   dCards[0] = PullCard(r);
