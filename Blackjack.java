@@ -191,7 +191,7 @@ public class Blackjack{
                   dCards = new String [12];
                   pNumbers = new int [12];
                   dNumbers = new int [12];
-
+              
                   pCards = NewCard(pCards);
                   dCards = NewCard(dCards);
 
@@ -290,6 +290,35 @@ public class Blackjack{
                                     }
                                     else if (CheckBlackjack(dTotal)){
                                           System.out.printf("BLACKJACK!!\n\n");
+                                    }
+                              }
+                        }
+
+                        if (HitDealer(dTotal)){
+                              dCards[2] = PullCard(r);
+                              dNumbers[2] = CardValue(dCards[2]);
+
+                              dTotal = SumCards(dNumbers);
+                              System.out.printf("\nCartas do Dealer: %s, %s e %s\nTotal: %d\n", dCards[0], dCards[1], dCards[2], dTotal);
+
+                              if (CheckBust(dTotal)){
+                                    System.out.println("QUEIMOU!!");
+                              }
+                              else if (CheckBlackjack(dTotal)){
+                                    System.out.println("BLACKJACK!!");
+                              }
+                              else if (HitDealer(dTotal)){
+                                    dCards[3] = PullCard(r);
+                                    dNumbers[3] = CardValue(dCards[3]);
+
+                                    dTotal = SumCards(dNumbers);
+                                    System.out.printf("\nCartas do Dealer: %s, %s, %s e %s\nTotal: %d\n", dCards[0], dCards[1], dCards[2], dCards[3], dTotal);
+
+                                    if (CheckBust(dTotal)){
+                                          System.out.println("QUEIMOU!!");
+                                    }
+                                    else if (CheckBlackjack(dTotal)){
+                                          System.out.println("BLACKJACK!!");
                                     }
                               }
                         }
